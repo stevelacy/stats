@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  stats:
+    image: "stevelacy/stats"
+    command: ["/app/main"]
+    ports:
+      - 4004
+    environment:
+      REDIS_URL: "redis-stats:6379"
+      VIRTUAL_HOST: stats.<yourdomain.com>
+    networks:
+      - projects
+
+  redis-stats:
+    image: "redis"
+    volumes:
+      - ./redis-stats-data:/data
+    networks:
+      - projects
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - projects
+networks:
+  projects:
