@@ -60,3 +60,17 @@ fetch('http://stats.example.com/page_one/stats')
   // {count: 448}
 
 ```
+
+For fully static-only sites you can use an `iframe` to show the output:
+
+```html
+<style>
+  .stats {
+    height: 20px;
+    width: 50px;
+    overflow: hidden;
+  }
+</style>
+
+<iframe class="stats" src="http://stats.example.com/page_three/stats?output=text" scrolling="no"></iframe>
+```
